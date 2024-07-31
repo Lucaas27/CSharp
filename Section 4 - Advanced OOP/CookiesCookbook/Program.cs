@@ -1,40 +1,20 @@
 ﻿
-using System.Runtime.InteropServices;
+using CookiesCookbook.DataAccess;
+using CookiesCookbook.FileAccess;
 
-var cookiesCookbookApp = new CookiesCookbookApp();
-cookiesCookbookApp.Run();
+const FileFormat Format = FileFormat.Json;
 
-public class CookiesCookbookApp
-{
-    private readonly RecipesRepository _recipesRepository;
-    private readonly RecipesUserInteraction _recipesUserInteraction;
-    public CookiesCookbookApp(RecipesRepository recipesRepository, RecipesUserInteraction recipesUserInteraction)
-    {
-        _recipesRepository = recipesRepository;
-        _recipesUserInteraction = recipesUserInteraction;
-    }
+IStringRepository stringsRepository = Format == FileFormat.Json ? 
+    new StringJsonRepository() : 
+    new StringTextualRepository();
 
-    public void Run()
-    {
-        var allRecipes = _recipesRepository.Read(filepath);
-        _recipesUserInteraction.PrintRecipes(allRecipes);
+var ingredientsRegister = new IngredientsRegister();
 
-        _recipesUserInteraction.PromptToCreateRecipe();
+var cookiesCookbookApp = new CookiesCookbookApp(
+    new RecipesRepository(stringsRepository, ingredientsRegister),
+    new RecipesConsoleUserInteraction(ingredientsRegister)
+);
 
-        var ingredients = _recipesUserInteraction.ReadIngredientsFromUser();
+var fileMetada = new FileMetadata("recipes", Format);
 
-        if (ingredients.Count > 0)
-        {
-            var recipe = new Recipe(ingredients);
-
-            allRecipes.Add(recipe);
-            _recipesRepository.Write(filepath, allRecipes);
-            _recipesUserInteraction.ShowMessage($"Recipe added: {recipe}");
-        }
-        else
-        {
-            _recipesUserInteraction.ShowMessage("No ingredients have been selected. Recipe will not be saved.");
-        }
-    }
-}
-
+cookiesCookbookApp.Run(fileMetada.ToPath());
