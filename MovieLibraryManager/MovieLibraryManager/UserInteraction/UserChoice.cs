@@ -1,4 +1,4 @@
-﻿namespace MovieLibraryManager.App;
+﻿namespace MovieLibraryManager.UserInteraction;
 
 public enum UserChoice
 {

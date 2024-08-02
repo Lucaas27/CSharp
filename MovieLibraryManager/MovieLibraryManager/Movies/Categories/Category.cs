@@ -1,11 +1,14 @@
 ﻿namespace MovieLibraryManager.Movies.Categories;
 
-public enum Category
+public abstract class Category
 {
-    Action = 1,
-    Comedy,
-    Drama,
-    Horror,
-    SciFi,
-    Documentary,
+    public abstract int ID { get; }
+    public abstract string Name { get; }
+    // public virtual IEnumerable<Movie> Movies { get; } = [];
+
+
+    public override string ToString()
+    {
+        return $"{ID}. {Name}";
+    }
 }

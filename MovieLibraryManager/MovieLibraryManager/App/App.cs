@@ -1,4 +1,5 @@
 ﻿using MovieLibraryManager.Movies;
+using MovieLibraryManager.UserInteraction;
 namespace MovieLibraryManager.App;
 
 public class App(IMovieRepository movieRepository, IUserInteraction userInteraction)
@@ -8,31 +9,53 @@ public class App(IMovieRepository movieRepository, IUserInteraction userInteract
 
     public void Run()
     {
-        // Read movies from file
-        var allMovies = _movieRepository.Read(filepath);
-        UserChoice userInput = _userInteraction.LoadMainScreen();
-        switch (userInput)
+        bool exit = false;
+        while (!exit)
         {
-            case UserChoice.ViewAllMovies:
-                // Display movies
-                _userInteraction.PrintTable(allMovies);
-                break;
-            case UserChoice.SearchForMovie:
-                Console.WriteLine("Search Movies was chosen");
-                break;
-            case UserChoice.AddNewMovie:
-                // Read new movie details
-                Movie newMovie = _userInteraction.ReadDetailsFromUser();
-                // Add new movie to the pre-existent list
-                allMovies.Add(newMovie);
-                // Write to the file to add new movie
-                _movieRepository.Write(filepath, allMovies);
-                _userInteraction.ShowMessage("Movie added successfully!");
-                break;
-            default:
-                _userInteraction.Exit();
-                break;
-        };
+            UserChoice userInput = _userInteraction.LoadMainScreen();
+            // Read movies from file
+            // var allMovies = _movieRepository.Read();
+            switch (userInput)
+            {
+                case UserChoice.ViewAllMovies:
+                    ViewAllMovies();
+                    break;
+                case UserChoice.SearchForMovie:
+                    SearchForMovie();
+                    break;
+                case UserChoice.AddNewMovie:
+                    AddNewMovie();
+                    break;
+                case UserChoice.Exit:
+                    exit = true;
+                    break;
+                default:
+                    _userInteraction.ShowMessage("Invalid choice. Please try again.");
+                    break;
+            };
+        }
+
+    }
+
+    private void AddNewMovie()
+    {
+        var allMovies = _movieRepository.Read();
+        var newMovie = _userInteraction.ReadDetailsFromUser();
+        allMovies.Add(newMovie);
+        _userInteraction.ShowMessage("\nMovie added successfully!");
+        _userInteraction.PrintMovies(allMovies);
+        // _movieRepository.Write();
+    }
+
+    private void SearchForMovie()
+    {
+        _userInteraction.ShowMessage("Search Movies was chosen");
+    }
+
+    private void ViewAllMovies()
+    {
+        var allMovies = _movieRepository.Read();
+        _userInteraction.PrintMovies(allMovies);
 
     }
 }

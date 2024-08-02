@@ -1,12 +1,13 @@
 using MovieLibraryManager.Movies;
+using MovieLibraryManager.Movies.Categories;
 
-namespace MovieLibraryManager.App;
+namespace MovieLibraryManager.UserInteraction;
 
 public interface IUserInteraction
 {
     UserChoice LoadMainScreen();
-    void Exit();
-    void ShowMessage(string v);
     Movie ReadDetailsFromUser();
-    void PrintTable(object allMovies);
+    void PrintMovies(IEnumerable<Movie> allMovies);
+    void PrintCategories();
+    void ShowMessage(string v);
 }

@@ -1,5 +1,4 @@
-﻿using MovieLibraryManager.App;
-
+﻿
 namespace MovieLibraryManager.UserInteraction;
 
 public static class UserChoiceExtension
