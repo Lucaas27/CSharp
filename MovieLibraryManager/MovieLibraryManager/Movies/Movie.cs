@@ -2,7 +2,7 @@
 
 namespace MovieLibraryManager.Movies;
 
-public class Movie(string title, string director, List<Category> category, int releaseYear, double rating)
+public class Movie(string title, string director, IEnumerable<Category> category, int releaseYear, double rating)
 {
     public Guid ID { get; } = Guid.NewGuid(); // Unique identifier for the movie.
     public string Title { get; } = title;

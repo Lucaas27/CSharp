@@ -1,9 +1,9 @@
 ﻿namespace MovieLibraryManager.Movies.Categories;
 
-public class CategoryRegister
+public class CategoryRegister : ICategoryRegister
 {
 
-    public IEnumerable<Category> AllCategories =
+    public IEnumerable<Category> AllCategories { get; } =
     [
         new Action(),
         new Comedy(),
@@ -13,10 +13,16 @@ public class CategoryRegister
         new Documentary()
     ];
 
+    public Category GetById(int id)
+    {
+        foreach (var cat in AllCategories)
+        {
+            if (cat.ID == id)
+            {
+                return cat;
 
-    // public override string ToString()
-    // {
-    //     return string.Join(Environment.NewLine, AllCategories.Select(c => $"{c.ID}. {c.Name}"));
-    // }
-
+            }
+        }
+        return null;
+    }
 }

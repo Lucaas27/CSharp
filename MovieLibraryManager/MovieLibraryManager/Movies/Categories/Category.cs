@@ -7,8 +7,6 @@ public abstract class Category
     // public virtual IEnumerable<Movie> Movies { get; } = [];
 
 
-    public override string ToString()
-    {
-        return $"{ID}. {Name}";
-    }
+    public override string ToString() => $"{ID}. {Name}";
+
 }

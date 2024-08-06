@@ -42,9 +42,8 @@ public class App(IMovieRepository movieRepository, IUserInteraction userInteract
         var allMovies = _movieRepository.Read();
         var newMovie = _userInteraction.ReadDetailsFromUser();
         allMovies.Add(newMovie);
+        _movieRepository.Write(allMovies);
         _userInteraction.ShowMessage("\nMovie added successfully!");
-        _userInteraction.PrintMovies(allMovies);
-        // _movieRepository.Write();
     }
 
     private void SearchForMovie()
@@ -55,7 +54,6 @@ public class App(IMovieRepository movieRepository, IUserInteraction userInteract
     private void ViewAllMovies()
     {
         var allMovies = _movieRepository.Read();
-        _userInteraction.PrintMovies(allMovies);
 
     }
 }

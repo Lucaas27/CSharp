@@ -7,7 +7,7 @@ public interface IUserInteraction
 {
     UserChoice LoadMainScreen();
     Movie ReadDetailsFromUser();
-    void PrintMovies(IEnumerable<Movie> allMovies);
+    void PrintMovies(IEnumerable<string> allMovies);
     void PrintCategories();
     void ShowMessage(string v);
 }

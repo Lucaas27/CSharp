@@ -3,9 +3,9 @@ using MovieLibraryManager.Movies.Categories;
 
 namespace MovieLibraryManager.UserInteraction;
 
-public class ConsoleUserInteraction(CategoryRegister categoryRegister) : IUserInteraction
+public class ConsoleUserInteraction(ICategoryRegister categoryRegister) : IUserInteraction
 {
-    private readonly CategoryRegister _categoryRegister = categoryRegister;
+    private readonly ICategoryRegister _categoryRegister = categoryRegister;
 
     public UserChoice LoadMainScreen()
     {
@@ -44,9 +44,8 @@ public class ConsoleUserInteraction(CategoryRegister categoryRegister) : IUserIn
         double movieRating;
         string title;
         string director;
-        List<Category> categoryList = [];
-
         bool isValid;
+        IEnumerable<Category> categoryList;
         do
         {
             Console.WriteLine("Enter the title of the movie:");
@@ -63,22 +62,14 @@ public class ConsoleUserInteraction(CategoryRegister categoryRegister) : IUserIn
 
             Console.WriteLine("Enter the numbers corresponding to the categories separated by commas:");
             PrintCategories();
-            var categoryInputs = Console.ReadLine()?.Split(',').ToList() ?? [];
-
-            // foreach (var input in categoryInputs)
-            // {
-            //     if (Enum.TryParse(input.Trim(), out Category category) && Enum.IsDefined(typeof(Category), category))
-            //     {
-            //         categoryList.Add(category);
-            //     }
-            // }
+            categoryList = ReadCategories();
 
 
             isValid = title != string.Empty
             && releaseYear != 0
             && movieRating != 0
             && director != string.Empty
-            && categoryList.Count > 0;
+            && categoryList.Any();
 
         } while (!isValid);
 
@@ -93,16 +84,42 @@ public class ConsoleUserInteraction(CategoryRegister categoryRegister) : IUserIn
             Console.WriteLine(cat);
 
         };
+
     }
 
-    public void PrintMovies(IEnumerable<Movie> allMovies)
+    public IEnumerable<Category> ReadCategories()
+    {
+        var categoryInputs = Console.ReadLine()?.Split(',').ToList() ?? [];
+        List<Category> categories = [];
+        foreach (var input in categoryInputs)
+        {
+            if (int.TryParse(input, out int id))
+            {
+                var selectedCategory = _categoryRegister.GetById(id);
+                if (selectedCategory is not null)
+                {
+                    categories.Add(selectedCategory);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid ID.");
+            }
+        }
+
+        return categories;
+    }
+
+    public void PrintMovies(IEnumerable<string> allMovies)
     {
         if (allMovies.Any())
         {
-            for (int index = 0; index < allMovies.Count(); ++index)
+            int counter = 1;
+            foreach (var movieString in allMovies)
             {
-                Console.WriteLine($"*****{index + 1}*****");
-                Console.WriteLine(allMovies.ElementAt(index));
+                Console.WriteLine($"*****{counter}*****");
+                Console.WriteLine(movieString);
+                counter++;
             }
 
         }

@@ -26,7 +26,7 @@ public class StringTxtRepository : StringStorageRepository
     /// <returns>The list of strings.</returns>
     protected override List<string> StringsToList(string fileContents)
     {
-        throw new NotImplementedException();
+        return [.. fileContents.Split(Separator)]; // Split the string by the separator and convert to a list.
     }
 
 }
