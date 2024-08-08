@@ -13,16 +13,14 @@ public class App(IMovieRepository movieRepository, IUserInteraction userInteract
         while (!exit)
         {
             UserChoice userInput = _userInteraction.LoadMainScreen();
-            // Read movies from file
-            // var allMovies = _movieRepository.Read();
             switch (userInput)
             {
                 case UserChoice.ViewAllMovies:
                     ViewAllMovies();
                     break;
-                case UserChoice.SearchForMovie:
-                    SearchForMovie();
-                    break;
+                // case UserChoice.SearchForMovie:
+                //     SearchForMovie();
+                //     break;
                 case UserChoice.AddNewMovie:
                     AddNewMovie();
                     break;
@@ -46,14 +44,14 @@ public class App(IMovieRepository movieRepository, IUserInteraction userInteract
         _userInteraction.ShowMessage("\nMovie added successfully!");
     }
 
-    private void SearchForMovie()
-    {
-        _userInteraction.ShowMessage("Search Movies was chosen");
-    }
+    // private void SearchForMovie()
+    // {
+    //     _userInteraction.ShowMessage("Search Movies");
+    // }
 
     private void ViewAllMovies()
     {
-        var allMovies = _movieRepository.Read();
+        _movieRepository.PrintMovies();
 
     }
 }

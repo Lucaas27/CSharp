@@ -3,5 +3,6 @@ namespace MovieLibraryManager.Movies;
 public interface IMovieRepository
 {
     List<Movie> Read();
-    void Write(IEnumerable<Movie> allMovies);
+    void PrintMovies();
+    void Write(List<Movie> allMovies);
 }
