@@ -14,8 +14,10 @@ public class Movie(string title, string director, IEnumerable<Category> category
     public override string ToString()
     {
 
-        var categories = string.Join(", ", Category.Select(c => c.ToString()));
-        return string.Join(Environment.NewLine, $"ID: {ID}, Title: {Title}, Director: {Director}, Category: {categories}, Release Year: {ReleaseYear}, Rating: {Rating}");
+        var categories = string.Join(" - ", Category.Select(c => c.ToString()));
+        var movieString = $"ID: {ID}; Title: {Title}; Director: {Director};  Category: {categories}; Release Year: {ReleaseYear}; Rating: {Rating}";
+        var movieFormatted = movieString.Split(',');
+        return movieString;
     }
 
 }

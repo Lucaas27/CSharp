@@ -1,59 +1,78 @@
 ﻿using MovieLibraryManager.DataAccess;
 using MovieLibraryManager.Movies.Categories;
+using MovieLibraryManager.UserInteraction;
 
 namespace MovieLibraryManager.Movies;
 
-public class MovieRepository(string filePath, IStringStorageRepository stringStorageRepository) : IMovieRepository
+public class MovieRepository(string filePath, IStringStorageRepository stringStorageRepository, IUserInteraction userInteraction, ICategoryRegister categoryRegister) : IMovieRepository
 {
     private readonly string _filePath = filePath;
     private readonly IStringStorageRepository _stringStorageRepository = stringStorageRepository;
+    private readonly IUserInteraction _userInteraction = userInteraction;
+    private readonly ICategoryRegister _categoryRegister = categoryRegister;
 
-
-    public List<Movie> Read()
+    public void PrintMovies()
     {
         List<string> moviesFromFile = _stringStorageRepository.Read(_filePath);
-        List<Movie> allMovies = [];
         if (moviesFromFile.Count > 0)
         {
             int counter = 1;
             foreach (var movieString in moviesFromFile)
             {
-                Console.WriteLine($"*****{counter}*****");
-
-                // string[] movieProperties = movieString.Split(","); // Split the string by the comma to get the movie properties.
-                // string title = movieProperties[0];
-                // string director = movieProperties[1];
-                // List<Category> categories = new List<Category>();
-                // foreach (var categoryId in movieProperties[2].Split(";")) // Split the string by the semicolon to get the category IDs.
-                // {
-                //     int id = int.Parse(categoryId);
-                //     categories.Add(_categoryRegister.GetById(id)); // Get the category object by its ID and add it to the list of categories.
-                // }
-                // int releaseYear = int.Parse(movieProperties[3]);
-                // double movieRating = double.Parse(movieProperties[4]);
-                // allMovies.Add(new Movie(title, director, categories, releaseYear, movieRating)); // Create a new movie object and add it to the list of movies.
-                Console.WriteLine(movieString);
+                _userInteraction.ShowMessage($"*****{counter}*****");
+                _userInteraction.ShowMessage(movieString);
+                counter++;
             }
 
         }
+        else
+        {
+            _userInteraction.ShowMessage("No movies found.");
+        }
+
+    }
+
+    public List<Movie> Read()
+    {
+        List<string> moviesFromFile = _stringStorageRepository.Read(_filePath);
+        List<Movie> allMovies = new List<Movie>();
+        foreach (var movieString in moviesFromFile)
+        {
+            allMovies.Add(MovieFromString(movieString));
+        }
 
         return allMovies;
-    }
-    // return
-    // [
-    //     new Movie("The Shawshank Redemption", "Frank Darabont",[new Categories.Action(),new Drama()]
-    //     ,1994, 9.3),
-    //     new Movie("The Godfather", "Francis Ford Coppola",[new Drama(), new Categories.Action()], 1972, 9.2),
-    //     new Movie("The Dark Knight", "Christopher Nolan", [new Categories.Action()], 2008, 9.0),
-    //     new Movie("The Godfather: Part II", "Francis Ford Coppola",[new Drama(), new Categories.Action()], 1974, 9.0),
-    //     new Movie("The Lord of the Rings: The Return of the King", "Peter Jackson", [new Drama(), new Categories.Action()], 2003, 8.9),
-    //     new Movie("Pulp Fiction", "Quentin Tarantino", [new Categories.Action(), new Comedy()], 1994, 8.9),
-    //     new Movie("Schindler's List", "Steven Spielberg", [new Drama()], 1993, 8.9),
-    // ];
 
-    public void Write(IEnumerable<Movie> allMovies)
+    }
+
+    public Movie MovieFromString(string movieString)
     {
-        _stringStorageRepository.Write(_filePath, allMovies.Select(m => m.ToString()).ToList()); // Convert each movie to a string and write it to the file.
+        var movieParts = movieString.Split(';');
+        var id = movieParts[0].Split(":")[1].Trim();
+        var title = movieParts[1].Split(":")[1].Trim();
+        var director = movieParts[2].Split(":")[1].Trim();
+        var categoryIds = movieParts[3].Split(":")[1].Trim()
+        .Split('-')
+                                        .Select(category => category
+                                        .Split('.')[0].Trim())
+                                        .Select(int.Parse).ToList();
+        var categories = categoryIds.Select(_categoryRegister.GetById).ToList();
+        var year = int.Parse(movieParts[4].Split(':')[1].Trim());
+        var rating = double.Parse(movieParts[5].Split(':')[1].Trim());
+
+        return new Movie(title, director, categories, year, rating);
+    }
+
+
+    public void Write(List<Movie> allMovies)
+    {
+        var allMoviesAsStrings = new List<string>();
+        foreach (var movie in allMovies)
+        {
+            allMoviesAsStrings.Add(movie.ToString());
+        }
+
+        _stringStorageRepository.Write(_filePath, allMoviesAsStrings);
     }
 
 }
