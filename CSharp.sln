@@ -25,6 +25,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MovieLibraryManager", "Movi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibraryManager", "MovieLibraryManager\MovieLibraryManager\MovieLibraryManager.csproj", "{CDAF75D9-351C-4DBF-8C3B-B2A08EF7EEC0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Section 5 - Exceptions", "Section 5 - Exceptions", "{7211FA1A-3C20-4695-A162-64152A62D718}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exceptions", "Section 5 - Exceptions\Exceptions\Exceptions.csproj", "{19DB5370-F871-4FA5-BEF1-1068EDD9797E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +63,10 @@ Global
 		{CDAF75D9-351C-4DBF-8C3B-B2A08EF7EEC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDAF75D9-351C-4DBF-8C3B-B2A08EF7EEC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDAF75D9-351C-4DBF-8C3B-B2A08EF7EEC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19DB5370-F871-4FA5-BEF1-1068EDD9797E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19DB5370-F871-4FA5-BEF1-1068EDD9797E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19DB5370-F871-4FA5-BEF1-1068EDD9797E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19DB5370-F871-4FA5-BEF1-1068EDD9797E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +79,7 @@ Global
 		{CF6E7C27-87D4-411B-B9E6-334F47CBB899} = {DEC58E7C-8359-4C47-86FA-C44F458879FA}
 		{2B4AE9AC-AE1B-4547-AE49-AA7E08F13FB4} = {73FAE835-52F3-4E29-BB10-9FF8098AE811}
 		{CDAF75D9-351C-4DBF-8C3B-B2A08EF7EEC0} = {2AB64865-C25D-4216-B2F4-C62126912B3B}
+		{19DB5370-F871-4FA5-BEF1-1068EDD9797E} = {7211FA1A-3C20-4695-A162-64152A62D718}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {21D14B5D-28A0-42E2-A2DF-6BD7A453F732}
