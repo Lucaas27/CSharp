@@ -1,4 +1,4 @@
-﻿IDataDownloader dataDownloader = new SlowDataDownloader(new Cache<string, string>());
+﻿IDataDownloader dataDownloader = new DataDownloaderWithCache(new PrintDataDownloader(new SlowDataDownloader()), new Cache<string, string>());
 
 Console.WriteLine(dataDownloader.DownloadData("id1"));
 Console.WriteLine(dataDownloader.DownloadData("id2"));
@@ -17,24 +17,48 @@ public interface IDataDownloader
     string DownloadData(string resourceId);
 }
 
-public class SlowDataDownloader : IDataDownloader
+
+public class PrintDataDownloader : IDataDownloader
 {
+    private readonly IDataDownloader _dataDownloader;
+    public PrintDataDownloader(IDataDownloader dataDownloader)
+    {
+        _dataDownloader = dataDownloader;
+    }
+    public string DownloadData(string resourceId)
+    {
+        var data = _dataDownloader.DownloadData(resourceId);
+        Console.WriteLine("Data is ready!");
+        return data;
+    }
+}
+
+public class DataDownloaderWithCache : IDataDownloader
+{
+    private readonly IDataDownloader _dataDownloader;
     private readonly ICache<string, string> _cache;
-    public SlowDataDownloader(ICache<string, string> cache)
+
+    public DataDownloaderWithCache(IDataDownloader dataDownloader, ICache<string, string> cache)
     {
         _cache = cache;
+        _dataDownloader = dataDownloader;
     }
+
+    public string DownloadData(string resourceId)
+    {
+        return _cache.Fetch(resourceId, _dataDownloader.DownloadData);
+
+    }
+}
+
+public class SlowDataDownloader : IDataDownloader
+{
     public string DownloadData(string resourceId)
     {
         //let's imagine this method downloads real data,
         //and it does it slowly
-
-        return _cache.Fetch(resourceId, id =>
-        {
-            Thread.Sleep(1000);
-            return $"Some data for {resourceId}";
-        });
-
+        Thread.Sleep(1000);
+        return $"Some data for {resourceId}";
     }
 }
 
