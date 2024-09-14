@@ -1,0 +1,38 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C#: CustomCache Debug",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/Section 6 - GenericTypes/CustomCache/CustomCache.csproj"
+        },
+        {
+            "name": "C#: Exceptions Debug",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/Section 5 - Exceptions/Exceptions/Exceptions.csproj"
+        },
+        {
+            "name": "C#: CookiesCookbook Debug",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/Section 4 - Advanced OOP/CookiesCookbook/CookiesCookbook.csproj"
+        },
+        {
+            "name": "C#: Calculator Debug",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/Section 2 - Fundamentals/Calculator/Calculator.csproj"
+        },
+        {
+            "name": "C#: MovieLibraryManager Debug",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/MovieLibraryManager/MovieLibraryManager/MovieLibraryManager.csproj"
+        }
+    ]
+}
