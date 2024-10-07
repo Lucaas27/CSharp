@@ -14,18 +14,15 @@ public class IngredientsRegister : IIngredientsRegister
         new WheatFlour()
     ];
 
-    public Ingredient GetIngredientById(int id)
+    public Ingredient? GetIngredientById(int id)
     {
-        foreach (var ingredient in AllIngredients)
+        var allIngredients = AllIngredients.Where(i => i.Id == id);
+        if (allIngredients.Count() > 1)
         {
-            if (ingredient.Id == id)
-            {
-                return ingredient;
-
-            }
+            throw new InvalidOperationException($"Multiple ingredients found with ID {id}");
         }
 
-        return null;
+        return allIngredients.FirstOrDefault(i => i.Id == id);
 
     }
 }

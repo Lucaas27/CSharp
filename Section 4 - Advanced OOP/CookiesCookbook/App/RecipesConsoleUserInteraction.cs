@@ -18,31 +18,28 @@ public class RecipesConsoleUserInteraction : IRecipesUserInteraction
 
     public void PrintRecipes(IEnumerable<Recipe> allRecipes)
     {
-        if (allRecipes.Count() == 0)
+        if (allRecipes.Any())
         {
-            Console.WriteLine("No recipes found.");
+            var recipes = allRecipes
+            .Select((recipe, index) => $"******** Recipe {index + 1} ********|{recipe}")
+            .Select(r => r.Split('|'))
+            .Select(parts => string.Join(Environment.NewLine, parts)); // Join parts of each recipe
+
+            Console.WriteLine(string.Join(Environment.NewLine, recipes));
+            Console.WriteLine();
         }
         else
         {
-            Console.WriteLine("Existing recipes are: ");
-
-            for (int i = 0; i < allRecipes.Count(); ++i)
-            {
-                Console.WriteLine("******** Recipe {0} ********", i + 1);
-                Console.WriteLine(allRecipes.ElementAt(i));
-                Console.WriteLine();
-            }
+            Console.WriteLine("No recipes found.");
         }
+
+
     }
 
     public void PromptToCreateRecipe()
     {
         Console.WriteLine("Create a new cookie recipe! Available ingredients are:");
-        foreach (var ingredient in _ingredientsRegister.AllIngredients)
-        {
-            Console.WriteLine(ingredient);
-
-        }
+        Console.WriteLine(string.Join(Environment.NewLine, _ingredientsRegister.AllIngredients));
     }
 
     public IEnumerable<Ingredient> ReadIngredientsFromUser()
