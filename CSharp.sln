@@ -37,6 +37,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Section 9 - Advanced Types"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedTypes", "Section 9 - Advanced Types\AdvancedTypes\AdvancedTypes.csproj", "{1FD12CF0-B4C9-4122-BD16-38BC5CD4BEB2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StarWarsStats", "StarWarsStats", "{487ADDDB-80FF-47A8-B285-222235819835}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWarsStats", "StarWarsStats\StarWarsStats\StarWarsStats.csproj", "{DFF1D0BA-9322-447C-B273-D9882A404A5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +87,10 @@ Global
 		{1FD12CF0-B4C9-4122-BD16-38BC5CD4BEB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FD12CF0-B4C9-4122-BD16-38BC5CD4BEB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FD12CF0-B4C9-4122-BD16-38BC5CD4BEB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFF1D0BA-9322-447C-B273-D9882A404A5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFF1D0BA-9322-447C-B273-D9882A404A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFF1D0BA-9322-447C-B273-D9882A404A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFF1D0BA-9322-447C-B273-D9882A404A5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +106,7 @@ Global
 		{19DB5370-F871-4FA5-BEF1-1068EDD9797E} = {7211FA1A-3C20-4695-A162-64152A62D718}
 		{6FDF2D77-6441-4825-A4DA-BDF5CCF32BD1} = {ED667805-18EB-4D39-B872-74352229CF72}
 		{1FD12CF0-B4C9-4122-BD16-38BC5CD4BEB2} = {B0B0F7F1-EAB1-47E1-BA44-605ADC3C9314}
+		{DFF1D0BA-9322-447C-B273-D9882A404A5F} = {487ADDDB-80FF-47A8-B285-222235819835}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {21D14B5D-28A0-42E2-A2DF-6BD7A453F732}
